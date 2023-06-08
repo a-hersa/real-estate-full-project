@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+    mysql:
+        build: ./mysql/
+        restart: unless-stopped
+        container_name: my-mysql
+        ports:
+            - "32001:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD: root
+            - TZ: Europe/Madrid
+        volumes:
+            - type: bind
+              source: ./data/mysql
+              target: /var/lib/mysql
+
+    scraper:
+        container_name: my-scraper
+        links:
+            - "mysql"
+        build: ./scraper/
+        ports:
+            - "5002:5002"
+        volumes:
+            - type: bind
+              source: ./data/
+              target: /data
+        environment:
+            - TZ: Europe/Madrid
+    app:
+        container_name: my-app
+        build: ./app/
+        restart: unless-stopped
+        ports:
+            - "8080:8080"
+        volumes:
+            - type: bind
+              source: ./data/
+              target: /artifacts
+        environment:
+            - TZ: Europe/Madrid
+    model-trainer:
+        container_name: my-model-trainer
+        links:
+            - "mysql"
+        build: ./model-trainer/
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: ./data/
+              target: /artifacts
+        environment:
+            - TZ: Europe/Madrid
