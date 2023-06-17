@@ -121,15 +121,15 @@ class Scraper():
         df = pd.DataFrame(columns=['source','id', 'time', 'province', 'county', 'city', 'area', 'neighborhood', 'title', 'type', 'price', 'parking', 'rooms', 'sqrm', 'floor', 'surface', 'elevator', 'tag', 'img', 'url'], index=None)
 
         time = date.today()
-        path = Path.cwd() / 'data' /  'files' / f'{time.month:02d}' / 'csv'
+        path = Path.cwd() / 'data' /  'scraper' / f'{time.month:02d}' / 'csv'
         os.makedirs(path, exist_ok = True)
-        df.to_csv(Path.cwd() / 'data' /  'files' / f'{time.month:02d}' / 'csv' / f'{self.time.year}_{self.time.month:02d}-data-{self.index_name}.csv', mode='a', index=False)
+        df.to_csv(Path.cwd() / 'data' /  'scraper' / f'{time.month:02d}' / 'csv' / f'{self.time.year}_{self.time.month:02d}-data-{self.index_name}.csv', mode='a', index=False)
         db = mysqlObject()
         for url in self.index_list:
             logging.info(f'loading soup for {url}')
             soup = Scrapingant(url).url_to_soup()
             df = pd.DataFrame(self.from_page_get_data(soup))
-            df.to_csv(Path.cwd() / 'data' /  'files' / f'{time.month:02d}' / 'csv' / f'{self.time.year}_{self.time.month:02d}-data-{self.index_name}.csv', mode='a', index=False, header=False)
+            df.to_csv(Path.cwd() / 'data' /  'scraper' / f'{time.month:02d}' / 'csv' / f'{self.time.year}_{self.time.month:02d}-data-{self.index_name}.csv', mode='a', index=False, header=False)
             db.insertDfInTable(df,tableProperties)
             logging.info('line of data appended')
         logging.info(f'end of from_pagelists_get_data')

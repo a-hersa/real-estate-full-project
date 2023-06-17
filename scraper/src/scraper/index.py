@@ -71,9 +71,9 @@ class Index():
         df = df[['source','date', 'url']]
 
         # Save to a csv
-        path = Path.cwd() / 'data' /  'files' / f'{time.month:02d}' / 'csv'
+        path = Path.cwd() / 'data' /  'scraper' / f'{time.month:02d}' / 'csv'
         os.makedirs(path, exist_ok = True)
-        df.to_csv(Path.cwd() / 'data' / 'files' / f'{time.month:02d}' / 'csv' / f'{time.year}_{time.month:02d}-index-{self.name}.csv', index=False, header=False)
+        df.to_csv(Path.cwd() / 'data' / 'scraper' / f'{time.month:02d}' / 'csv' / f'{time.year}_{time.month:02d}-index-{self.name}.csv', index=False, header=False)
         logging.info(f'Index data for {self.name} saved in a csv')
 
         # Save to mysql

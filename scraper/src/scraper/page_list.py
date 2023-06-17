@@ -59,7 +59,7 @@ class PageList():
         logging.info('Initializing get_all_pagelists function')
         all_pagelists = []
         time = date.today()
-        path = Path.cwd() / 'data' /  'files' / f'{time.month:02d}' / 'csv'
+        path = Path.cwd() / 'data' /  'scraper' / f'{time.month:02d}' / 'csv'
         os.makedirs(path, exist_ok = True)
         for index in self.index_list:
             # pagelist = []
@@ -69,7 +69,7 @@ class PageList():
             logging.info(f'printing list to append {single_list}')
             for page in single_list:
                 all_pagelists.append(page)
-            with open(Path.cwd() / 'data' /  'files' / f'{time.month:02d}' / 'csv' / f'{self.time.year}_{self.time.month:02d}-pagelist-{self.index_name}.csv', 'a', newline='') as csvfile:
+            with open(Path.cwd() / 'data' /  'scraper' / f'{time.month:02d}' / 'csv' / f'{self.time.year}_{self.time.month:02d}-pagelist-{self.index_name}.csv', 'a', newline='') as csvfile:
                 writer = csv.writer(csvfile, delimiter='\n')
                 writer.writerow(single_list)
         df = pd.DataFrame(all_pagelists, columns=['url'])

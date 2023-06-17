@@ -16,6 +16,9 @@ from dataclasses import dataclass
 @dataclass
 class appConfig:
     urls = [
+        'https://www.idealista.com/venta-viviendas/cornella-de-llobregat-barcelona/'
+    ]
+    urls_backup = [
         'https://www.idealista.com/venta-viviendas/cornella-de-llobregat-barcelona/',
         'https://www.idealista.com/venta-viviendas/barcelona/maresme/',
         'https://www.idealista.com/venta-viviendas/barcelona-barcelona/'
